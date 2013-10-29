@@ -1,0 +1,33 @@
+<h1>Listing social_metrics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Context</th>
+      <th>Value</th>
+      <th>Minutes since publish</th>
+      <th>Post</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @social_metrics.each do |social_metric| %>
+      <tr>
+        <td><%= social_metric.context %></td>
+        <td><%= social_metric.value %></td>
+        <td><%= social_metric.minutes_since_publish %></td>
+        <td><%= social_metric.post_id %></td>
+        <td><%= link_to 'Show', social_metric %></td>
+        <td><%= link_to 'Edit', edit_social_metric_path(social_metric) %></td>
+        <td><%= link_to 'Destroy', social_metric, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Social metric', new_social_metric_path %>

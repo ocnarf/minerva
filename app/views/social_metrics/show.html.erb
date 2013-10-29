@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Context:</strong>
+  <%= @social_metric.context %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @social_metric.value %>
+</p>
+
+<p>
+  <strong>Minutes since publish:</strong>
+  <%= @social_metric.minutes_since_publish %>
+</p>
+
+<p>
+  <strong>Post:</strong>
+  <%= @social_metric.post_id %>
+</p>
+
+<%= link_to 'Edit', edit_social_metric_path(@social_metric) %> |
+<%= link_to 'Back', social_metrics_path %>
