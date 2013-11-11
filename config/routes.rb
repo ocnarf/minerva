@@ -1,4 +1,5 @@
 MinervaSample::Application.routes.draw do
+  get "pub_sub/callback"
   resources :social_metrics
 
   resources :posts
