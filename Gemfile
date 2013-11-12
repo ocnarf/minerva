@@ -36,3 +36,5 @@ gem 'whenever', :require => false
 
 #facebook api
 gem "koala", "~> 1.8.0rc1"
+
+gem "httparty"
