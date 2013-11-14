@@ -38,3 +38,5 @@ gem 'whenever', :require => false
 gem "koala", "~> 1.8.0rc1"
 
 gem "httparty"
+
+gem "feedzirra", "~> 0.2.1"

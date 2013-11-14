@@ -7,7 +7,7 @@ module SuperfeedrPshb
     attr_accessor :hub, :auth, :callback_root
     base_uri nil
  
-    def initialize(username, password, callback_root, hub = "http://superfeedr.com/hubbub")
+    def initialize(username, password, callback_root, hub = "https://superfeedr.com/hubbub")
       self.class.base_uri hub
       self.class.basic_auth username, password
       @auth = {:username => username, :password => password}

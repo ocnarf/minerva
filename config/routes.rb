@@ -1,5 +1,6 @@
 MinervaSample::Application.routes.draw do
-  get "pub_sub/callback"
+  get "pub_sub/callback" => "pub_sub#validate"
+  post "pub_sub/callback" => "pub_sub#notify"
   resources :social_metrics
 
   resources :posts
