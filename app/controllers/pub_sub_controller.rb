@@ -36,11 +36,16 @@ class PubSubController < ApplicationController
 
   def notify
     #logger.info request.env
-    logger.info("HEADERS: #{request.headers}")
-    logger.info("BODY: #{request.body.read}")
-    Rails.logger.info("PARAMS: #{params.inspect}")
-    #puts "Body: " + request.body.read
-    puts params.inspect
+    #logger.info "HEeeADERS: #{request.headers}"
+    #logger.info("BODY: #{JSON.pretty_generate(JSON.parse(request.body.string))}")
+    #Rails.logger.info("PARAMS: #{JSON.pretty_generate(params)}")
+
+    #parse feed
+    #feed = Feedzirra::Feed.parse(xml)
+    puts "befor"
+    Post.add_entry(params)
+    puts "afte"
+    
     render :action => "callback", :layout => false
   end
 

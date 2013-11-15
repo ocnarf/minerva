@@ -15,14 +15,14 @@ module SuperfeedrPshb
     end
     
     def create_and_send_request(type, mode_options)
-      options = { :body => { 'hub.mode' => type, 'hub.verify' => "sync" } }
+      options = {:headers => {"Accept" => "application/json"}, :body => { 'hub.mode' => type, 'hub.verify' => "sync"} }
       options[:body].merge!(mode_options)
       puts options.inspect
       self.class.post('/', options)
     end
 
     def subscribe(callback, topic, token)
-      options = {'hub.callback' => @callback_root + callback, 'hub.topic' => topic, 'hub.verify_token' => token}
+      options = {'hub.callback' => @callback_root + callback, 'hub.topic' => topic, 'hub.verify_token' => token, 'format' => 'json'}
       create_and_send_request("subscribe", options)
     end
     
