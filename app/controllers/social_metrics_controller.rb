@@ -4,7 +4,7 @@ class SocialMetricsController < ApplicationController
   # GET /social_metrics
   # GET /social_metrics.json
   def index
-    @social_metrics = SocialMetric.all
+    @social_metrics = SocialMetric.last(200).reverse
   end
 
   # GET /social_metrics/1

@@ -3,7 +3,9 @@ require 'spec_helper'
 describe "posts/show" do
   before(:each) do
     @post = assign(:post, stub_model(Post,
-      :url => "Url"
+      :url => "Url",
+      :feed_id => 1,
+      :site_id => 2
     ))
   end
 
@@ -11,5 +13,7 @@ describe "posts/show" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/Url/)
+    rendered.should match(/1/)
+    rendered.should match(/2/)
   end
 end

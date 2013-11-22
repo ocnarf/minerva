@@ -19,6 +19,14 @@
     <%= f.label :published %><br>
     <%= f.datetime_select :published %>
   </div>
+  <div class="field">
+    <%= f.label :feed_id %><br>
+    <%= f.number_field :feed_id %>
+  </div>
+  <div class="field">
+    <%= f.label :site_id %><br>
+    <%= f.number_field :site_id %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

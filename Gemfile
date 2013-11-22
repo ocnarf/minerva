@@ -35,8 +35,12 @@ end
 gem 'whenever', :require => false
 
 #facebook api
-gem "koala", "~> 1.8.0rc1"
+gem 'koala', '~> 1.8.0rc1'
 
-gem "httparty"
+gem 'httparty'
 
-gem "feedzirra", "~> 0.2.1"
+# feed fetching & parsing
+gem 'feedzirra', '~> 0.2.1'
+
+# background job manager
+gem 'delayed_job_active_record'

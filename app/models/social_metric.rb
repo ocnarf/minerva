@@ -5,8 +5,8 @@ class SocialMetric < ActiveRecord::Base
 
   def self.update_records
     Post.all.each do |post|
-      oauth_access_token = 'CAACEdEose0cBALkc5ekcww4oyVp8HZARiFdBDyQviI6EVDF5ZCpWqz73Tjv8aakeJBaY5fHCQkx2289VrFRRZB32awUZCzlNiFF0S0LjlzSBpqmhMi1nqgYZAIvi99jE7aL1ZCx0xhIZCsQ7ZCdBgDOfarU5B0IXk97YJs2ZC66kvLjbF19EB01NdZC1Pl3ao09uYVn5LyLATjOwZDZD'
-      @api = Koala::Facebook::API.new(oauth_access_token)
+      oauth_access_token = 'CAACEdEose0cBAKAiCMepwZANiYhrp8QykiYIHEDeV2RyKL7PlhTbJZCGusyyGEEvZAQEZBn4ZA860SnOxUnazQncey4aIbOL8HR3i80ZC0ZBYEHhMmUj8d9cTpllfZAgYMkKCrjV6haKl4cefxm8wq3xHvuvIfsZAOD6eh53vKSR9NthSUE7yFbCk0EXbN3Pekim2J6qrdeqzZAgZDZD'
+      @api = Koala::Facebook::API.new
       fql_query = 'SELECT url, normalized_url, click_count, share_count, like_count, comment_count, total_count, commentsbox_count, comments_fbid, click_count FROM link_stat WHERE url="' + post.url + '" '
       fql = @api.fql_query(fql_query)
       #puts "result: " + fql.inspect + " \n"
