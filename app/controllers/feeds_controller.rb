@@ -24,17 +24,13 @@ class FeedsController < ApplicationController
   # POST /feeds
   # POST /feeds.json
   def create
-    @feed = Feed.new(feed_params)
+    Feed.subscribe_to_feed(feed_params)
 
     respond_to do |format|
-      if @feed.save
-        format.html { redirect_to @feed, notice: 'Feed was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @feed }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @feed.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to feeds_url }
+      format.json { head :no_content }
     end
+
   end
 
   # PATCH/PUT /feeds/1

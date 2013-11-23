@@ -12,36 +12,48 @@ class PubSubController < ApplicationController
     logger.formatter = Logger::Formatter.new
     Feedzirra::Feed.add_common_feed_element(:link, :as => :hub, :value => :href, :with => {:rel => "hub"})
     Feedzirra::Feed.add_common_feed_element('atom10:link', :as => :hub, :value => :href, :with => {:rel => "hub"})
-    
+    Feedzirra::Feed.add_common_feed_element(:link, :as => :self_url, :value => :href, :with => {:rel => "self"})
+    Feedzirra::Feed.add_common_feed_element('atom10:link', :as => :self_url, :value => :href, :with => {:rel => "self"})
+
     parsed_feed = Feedzirra::Feed.fetch_and_parse(feed_url)
+    self_url = parsed_feed.self_url
 
     # now that we have parsed the hub, add hub to feed record
     hub = parsed_feed.hub
-    logger.info "hub is: " + hub
     if !Hub.exists?( :url => hub )
       Hub.create( { :url => hub } )
       logger.info "hub created"
     end
     hub_id = Hub.where( { :url => hub} ).first.id
-    logger.info "hub id: " + hub_id.inspect
-    feed_entry = Feed.where( { :url => feed_url } ).first
-    feed_entry.update_attributes( :hub_id => hub_id )
+
+    # create a new feed entry with the self_url and hub
+    logger.info "will create feed"
+    new_feed = Feed.create( {:url => self_url, :hub_id => hub_id} )
+    logger.info "did create feed"
+    #feed_entry = Feed.where( { :url => self_url } ).first
+    #feed_entry.update_attributes( :hub_id => hub_id )
 
   	pshb = SuperfeedrPshb::SuperfeedrPshb.new("minerva", "soymexicano", 
-  		@app_address, parsed_feed.hub)
+  		@app_address, hub)
     
-  	pshb.subscribe("/pub_sub/callback", feed_url, "superfeedtest")
+  	pshb.subscribe("/pub_sub/callback", self_url, "superfeedtest")
   end
 
-  def self.unsubscribe(feed)
+  def self.unsubscribe(feed_url)
+    #TODO move logic around so feed record doesnt get destroyed untill after successful unsubscribe from 
+    # hub? Then we can just use the hub corresponding to the feed record (no need to fetch_and_parse feed to
+    # get hub)
+
     # TODO: move to a initialize location where these will get called once
     Feedzirra::Feed.add_common_feed_element(:link, :as => :hub, :value => :href, :with => {:rel => "hub"})
     Feedzirra::Feed.add_common_feed_element('atom10:link', :as => :hub, :value => :href, :with => {:rel => "hub"})
-    
-    parsed_feed = Feedzirra::Feed.fetch_and_parse(feed)
+    Feedzirra::Feed.add_common_feed_element(:link, :as => :self_url, :value => :href, :with => {:rel => "self"})
+    Feedzirra::Feed.add_common_feed_element('atom10:link', :as => :self_url, :value => :href, :with => {:rel => "self"})
+
+    parsed_feed = Feedzirra::Feed.fetch_and_parse(feed_url)
     pshb = SuperfeedrPshb::SuperfeedrPshb.new("minerva", "soymexicano", 
       @app_address, parsed_feed.hub)
-    pshb.unsubscribe("/pub_sub/callback", feed, "superfeedtest")
+    pshb.unsubscribe("/pub_sub/callback", feed_url, "superfeedtest")
   end
 
   def callback

@@ -40,7 +40,7 @@ gem 'koala', '~> 1.8.0rc1'
 gem 'httparty'
 
 # feed fetching & parsing
-gem 'feedzirra', '~> 0.2.1'
+gem 'feedzirra', '~> 0.4.0'
 
 # background job manager
 gem 'delayed_job_active_record'

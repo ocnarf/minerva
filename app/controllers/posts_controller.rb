@@ -61,6 +61,11 @@ class PostsController < ApplicationController
     end
   end
 
+  def top
+    @posts = Post.where(published: (Time.zone.now - 1.day)..Time.zone.now).order(published: :desc)
+    render action: 'index'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
