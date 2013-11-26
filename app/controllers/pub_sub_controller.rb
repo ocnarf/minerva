@@ -31,11 +31,12 @@ class PubSubController < ApplicationController
     end
     hub_id = Hub.where( {:url => hub} ).first.id
 
-    # create a new feed entry with the topic_url and hub
-    Feed.create( {:url => topic_url, :hub_id => hub_id} )
-
   	pshb = SuperfeedrPshb::SuperfeedrPshb.new("minerva", "soymexicano", @app_address, hub)
   	pshb.subscribe("/pub_sub/callback", topic_url, "superfeedtest")
+
+    # TODO only create if subscribe is successful
+    # create a new feed entry with the topic_url and hub
+    Feed.create( {:url => topic_url, :hub_id => hub_id} )
   end
 
   def self.unsubscribe(feed_url)

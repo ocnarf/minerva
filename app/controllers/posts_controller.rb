@@ -62,8 +62,10 @@ class PostsController < ApplicationController
   end
 
   def top
-    @posts = Post.where(published: (Time.zone.now - 1.day)..Time.zone.now).order(published: :desc)
-    render action: 'index'
+    #@posts = Post.where(published: (Time.zone.now - 1.day)..Time.zone.now).order(published: :desc)
+    time_range = (Time.zone.now - 2.day)..Time.zone.now
+    @posts = Post.joins(:social_metrics).select("posts.id, posts.url, posts.published, posts.feed_id, posts.site_id, MAX(social_metrics.created_at) AS max, social_metrics.value as value").where(posts: {published: time_range}, social_metrics: {context: 'fblike_count'}).group("posts.id").order("value desc")
+    render 'top'
   end
 
   private
