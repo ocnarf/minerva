@@ -3,7 +3,7 @@ class PubSubController < ApplicationController
     puts response.body
 	end
 
-  @app_address = "http://67.180.176.71"
+  @app_address = "http://getminerva.dyndns.org"
   #TODO: ok to suppress csrf?? Used for pshb to post/notify us of feed changes
   skip_before_filter :verify_authenticity_token, :only => [:notify]
   
@@ -61,7 +61,6 @@ class PubSubController < ApplicationController
   end
 
   def validate
-    puts "validate"
     if !params["hub.challenge"].nil?
        @challenge = params["hub.challenge"]
        render :action => "callback", :text => @challenge, :status => :ok, :layout => false
