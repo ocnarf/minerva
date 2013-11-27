@@ -44,3 +44,9 @@ gem 'feedzirra', '~> 0.4.0'
 
 # background job manager
 gem 'delayed_job_active_record'
+
+# admin interface
+gem 'rails_admin'
+
+
+gem "devise"
