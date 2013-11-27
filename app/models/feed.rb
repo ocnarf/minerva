@@ -10,6 +10,12 @@ class Feed < ActiveRecord::Base
     PubSubController.delay.subscribe(params[:url])
   end
 
+  def self.resubscribe_all
+    Feed.all.each do |feed|
+     PubSubController.delay.subscribe(feed.url) 
+    end
+  end
+
   private
 
     def unsubscribe_feed

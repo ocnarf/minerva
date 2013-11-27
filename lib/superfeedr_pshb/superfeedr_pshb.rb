@@ -16,7 +16,7 @@ module SuperfeedrPshb
     end
     
     def create_and_send_request(type, mode_options)
-      options = {:headers => {"Accept" => "application/json"}, :body => { 'hub.mode' => type, 'hub.verify' => "sync"} }
+      options = {:body => { 'hub.mode' => type, 'hub.verify' => "sync"} }
       options[:body].merge!(mode_options)
       Rails.logger.info "pshb hub: #{self.class.base_uri} parameters: " + options.inspect
       response = self.class.post('/', options)
