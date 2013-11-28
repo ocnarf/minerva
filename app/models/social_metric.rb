@@ -1,6 +1,6 @@
 class SocialMetric < ActiveRecord::Base
   belongs_to :post
-
+  has_one :site,  :through => :post
   @fbmetrics = ['like_count', 'share_count', 'comment_count']
 
   class << self
