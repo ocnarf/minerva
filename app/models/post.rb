@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   has_many :social_metrics
+  has_one :latest_social_metric
   belongs_to :feed
   belongs_to :site
 

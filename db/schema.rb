@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131127034753) do
+ActiveRecord::Schema.define(version: 20131128055819) do
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 20131127034753) do
 
   create_table "hubs", force: true do |t|
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "latest_social_metrics", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "fb_like_count"
+    t.integer  "fb_share_count"
+    t.integer  "fb_comment_count"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
