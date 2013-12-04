@@ -5,10 +5,14 @@ class Ranker
     #Post.joins(:social_metrics).select("posts.*, MAX(social_metrics.value) as value").where(posts: {published: time_range}, social_metrics: {context: 'fblike_count'}).group("posts.id").order("value desc")
   end
 
+  def self.percent(time_range)
+    self.percentile_rank(time_range)
+  end
+
 private
 
   def self.simple_max(time_range)
-    Post.joins(:social_metrics).select("posts.*, MAX(social_metrics.value) as max_value").where(posts: {published: time_range}, social_metrics: {context: 'fblike_count'}).group("posts.id").order("max_value desc")
+    Post.joins(:social_metrics).select("posts.*, MAX(social_metrics.value) as likes").where(posts: {published: time_range}, social_metrics: {context: 'fblike_count'}).group("posts.id").order("likes desc")
   end
 
   def self.above_average(time_range)
@@ -17,11 +21,16 @@ private
   end
 
   def self.percentile_rank(time_range)
-     #LatestSocialMetric.select('latest_social_metrics.*, 100 * ROW_NUMBER() OVER (ORDER BY fb_like_count))/Count(*) AS percentile')
-     #LatestSocialMetric.select('latest_social_metrics.*, (select count(*) from latest_social_metrics a where a.id >= latest_social_metrics.id) as rownum')
-     #(select count(*) from tbl b  where a.id >= b.id) as cnt
+     # get percentile for all posts
+     post_percentile = Post.joins(:latest_social_metric).select('posts.id, posts.published, posts.site_id, posts.url,
+      latest_social_metrics.fb_like_count AS likes,
+      avg(latest_social_metrics.fb_like_count) OVER(PARTITION BY posts.site_id) AS AVG,
+      RANK() OVER(PARTITION BY posts.site_id ORDER BY latest_social_metrics.fb_like_count) RANK,
+      PERCENT_RANK() OVER(PARTITION BY posts.site_id ORDER BY latest_social_metrics.fb_like_count) pr,
+      CUME_DIST() OVER(PARTITION BY posts.site_id ORDER BY latest_social_metrics.fb_like_count) CD ')
 
-     x= LatestSocialMetric.order('fb_like_count').select('latest_social_metrics.fb_like_count, (select count(*) from latest_social_metrics AS a where a.fb_like_count >= latest_social_metrics.fb_like_count) as row_num')
+     # filter post created in time range and order by percentile
+     top = post_percentile.where(posts: {published: time_range}).order('pr desc')
   end
 
 

@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
-  has_many :social_metrics
-  has_one :latest_social_metric
+  has_many :social_metrics, dependent: :destroy
+  has_one :latest_social_metric, dependent: :destroy
   belongs_to :feed
   belongs_to :site
 

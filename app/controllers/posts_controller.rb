@@ -62,11 +62,17 @@ class PostsController < ApplicationController
   end
 
   def top
-    #@posts = Post.where(published: (Time.zone.now - 1.day)..Time.zone.now).order(published: :desc)
     time_range = (Time.zone.now - 1.day)..Time.zone.now
-    @posts = Ranker.rank(time_range) #Post.joins(:social_metrics).select("posts.*, MAX(social_metrics.value) as value").where(posts: {published: time_range}, social_metrics: {context: 'fblike_count'}).group("posts.id").order("value desc")
+    @posts = Ranker.rank(time_range)
     render 'top'
   end
+  
+  def percent
+    time_range = (Time.zone.now - 1.day)..Time.zone.now
+    @posts = Ranker.percent(time_range)
+    render 'top'
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

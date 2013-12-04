@@ -4,7 +4,8 @@ MinervaSample::Application.routes.draw do
   
   resources :posts do
     collection do
-      get "top"
+      get 'top'
+      get 'percent'
     end
   end
 
