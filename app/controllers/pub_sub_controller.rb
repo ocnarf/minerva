@@ -31,7 +31,9 @@ class PubSubController < ApplicationController
     end
     hub_id = Hub.where( {:url => hub} ).first.id
 
-  	pshb = SuperfeedrPshb::SuperfeedrPshb.new("minerva", "soymexicano", @app_address, hub)
+    @superfeedr_username = "username"
+    @superfeedr_password = "password"
+  	pshb = SuperfeedrPshb::SuperfeedrPshb.new(@superfeedr_username, @superfeedr_password, @app_address, hub)
   	pshb.subscribe("/pub_sub/callback", topic_url, "superfeedtest")
 
     # TODO only create if subscribe is successful

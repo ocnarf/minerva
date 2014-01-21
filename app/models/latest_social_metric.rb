@@ -10,7 +10,10 @@ class LatestSocialMetric < ActiveRecord::Base
       @token = @oauth.get_app_access_token
       @api = Koala::Facebook::API.new(@token)
 
-      Post.find_each do |post|
+      # update only for posts in last 2 days,
+      time_range = (Time.zone.now - 2.day)..Time.zone.now
+      recent_posts = Post.where(posts: {published: time_range})
+      recent_posts.find_each do |post|
         #logger.info "gettting SM for Post: #{post.id}"
         
         fql_query = 'SELECT url, normalized_url, click_count, share_count, like_count, comment_count, total_count, commentsbox_count, comments_fbid, click_count FROM link_stat WHERE url="' + post.url + '" '

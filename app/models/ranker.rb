@@ -9,6 +9,10 @@ class Ranker
     self.percentile_rank(time_range)
   end
 
+  def self.avgerage(time_range)
+    self.over_avg(time_range)
+  end
+
 private
 
   def self.simple_max(time_range)
@@ -31,6 +35,19 @@ private
 
      # filter post created in time range and order by percentile
      top = post_percentile.where(posts: {published: time_range}).order('pr desc')
+  end
+
+  def self.over_avg(time_range)
+     # get percentile for all posts
+     post_percentile = Post.joins(:latest_social_metric).select('posts.id, posts.published, posts.site_id, posts.url,
+      latest_social_metrics.fb_like_count AS likes,
+      avg(latest_social_metrics.fb_like_count) OVER(PARTITION BY posts.site_id) AS average_likes,
+      RANK() OVER(PARTITION BY posts.site_id ORDER BY latest_social_metrics.fb_like_count) RANK,
+      PERCENT_RANK() OVER(PARTITION BY posts.site_id ORDER BY latest_social_metrics.fb_like_count) pr,
+      CUME_DIST() OVER(PARTITION BY posts.site_id ORDER BY latest_social_metrics.fb_like_count) CD ')
+
+     # filter post created in time range and order by percentile
+     top = post_percentile.select('latest_social_metrics.fb_like_count/(avg(latest_social_metrics.fb_like_count) OVER(PARTITION BY posts.site_id)) AS over_avg').where(posts: {published: time_range}).where('latest_social_metrics.fb_like_count > 0').order('over_avg desc')
   end
 
 

@@ -24,7 +24,7 @@ set :environment , "development"
 
 
 # Update SocialMetrics values for each Post
-every 15.minutes do
+every 30.minutes do
   #runner "SocialMetric.update_records"
   runner "LatestSocialMetric.update_records"
 end
