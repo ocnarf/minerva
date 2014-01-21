@@ -1,18 +1,17 @@
-== README
-# **Minerva**
+# Minerva
 
 Minerva is a simple server side app that serves as a content aggregator. You can run your own Minerva aggregator and quickly customize content sources. 
 
 Minerva uses PubSubHubBub (PSHB) protocol to recieve new feed entries is real time, learn more [here](https://code.google.com/p/pubsubhubbub/). You should create an account at superfeedr.com to allow receiving of PSHB notification from feeds that do not explicitly push to a PSHB hub.
 
-## **Dependencies**
+## Dependencies
 
-### Ruby Gems:
+#### Ruby Gems:
 whenever - for scheduling recuring taks, updating social metrics periodically in this case
 delayed_job - for running background jobs to query social api's (fb, twitter)
 feedzira - for parsing feed's
 
-### External
+#### External
 Superfeedr - to allow subscription to feeds that do not conform to PSHB protocol
 
 ## Database
@@ -27,7 +26,7 @@ latest_social_metrics
 
 The only table than you currently need to manually manage and add entries to is feeds.
 
-## **Setup/Customization**
+## Setup/Customization
 Once you have created a superfeedr account you will need to change the following 3 lines of code in pub_sub_controller.rb to be your own username/password
 
 @superfeedr_username = "username"
