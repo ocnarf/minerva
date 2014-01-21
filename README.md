@@ -7,9 +7,9 @@ Minerva uses PubSubHubBub (PSHB) protocol to recieve new feed entries is real ti
 ## Dependencies
 
 #### Ruby Gems:
-whenever - for scheduling recuring taks, updating social metrics periodically in this case
-delayed_job - for running background jobs to query social api's (fb, twitter)
-feedzira - for parsing feed's
+-whenever - for scheduling recuring taks, updating social metrics periodically in this case
+-delayed_job - for running background jobs to query social api's (fb, twitter)
+-feedzira - for parsing feed's
 
 #### External
 Superfeedr - to allow subscription to feeds that do not conform to PSHB protocol
@@ -17,12 +17,12 @@ Superfeedr - to allow subscription to feeds that do not conform to PSHB protocol
 ## Database
 Minerva uses postgreSQL as its DBMS to enable complex queries of its social metrics tables. Minerva has the following database tables:
 
-hubs
-sites
-feeds
-posts
-social_metrics
-latest_social_metrics
+-hubs
+-sites
+-feeds
+-posts
+-social_metrics
+-latest_social_metrics
 
 The only table than you currently need to manually manage and add entries to is feeds.
 
