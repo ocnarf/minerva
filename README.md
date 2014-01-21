@@ -38,6 +38,3 @@ Once you have created a superfeedr account you will need to change the following
 
 The first two are self explanatory, @pub_sub_callback is the callback that the PSHB hub will send notifications to. This path is relative to your root route, make sure the route is accessible.
 
-## Adding a new content sources
-Creating a new entry in the feeds table will add that feed to the list of sources from which to gather content for aggregation. A feed entry should be the address of an RSS or atom feed.
-
