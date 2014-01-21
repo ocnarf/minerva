@@ -4,7 +4,7 @@ Minerva is a simple server side app that serves as a content aggregator. You can
 
 Minerva uses PubSubHubBub (PSHB) protocol to recieve new feed entries is real time, learn more [here](https://code.google.com/p/pubsubhubbub/). You should create an account at [superfeedr.com](http://superfeedr.com/) to allow receiving of PSHB notification from feeds that do not explicitly push to a PSHB hub.
 
-### Dependencies
+## Dependencies
 
 #### Ruby Gems
 - whenever - for scheduling recuring taks, updating social metrics periodically in this case
@@ -14,7 +14,7 @@ Minerva uses PubSubHubBub (PSHB) protocol to recieve new feed entries is real ti
 #### External
 Superfeedr - to allow subscription to feeds that do not conform to PSHB protocol
 
-### Database
+## Database
 Minerva uses postgreSQL as its DBMS to enable complex queries of its social metrics tables. Minerva has the following database tables:
 
 - hubs
