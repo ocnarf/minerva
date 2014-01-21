@@ -41,5 +41,3 @@ The first two are self explanatory, @pub_sub_callback is the callback that the P
 ## Adding a new content sources
 Creating a new entry in the feeds table will add that feed to the list of sources from which to gather content for aggregation. A feed entry should be the address of an RSS or atom feed.
 
-
-<tt>rake doc:app</tt>.
